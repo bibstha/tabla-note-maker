@@ -1,8 +1,28 @@
 <div id="<%= dom_id song %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Bol:</strong>
-    <%= song.bol %>
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= song.title %>
   </p>
+  <p class="my-5">
+  <% debugger %>
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= song.description %>
+  </p>
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Speed:</strong>
+    <%= song.speed %>
+  </p>
+
+  <div class="my-5">
+    <strong class="block font-medium mb-1">Bol:</strong>
+    <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16 gap-2 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-fuchsia rounded-lg">
+      <% song.bol.split(",").map(&:strip).each do |bol| %>
+        <div class="p-4 rounded-lg shadow-lg bg-fuchsia-500">
+          <%= bol %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
   <% if action_name != "show" %>
     <%= link_to "Show this song", song, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
