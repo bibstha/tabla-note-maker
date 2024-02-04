@@ -16,19 +16,32 @@
       <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
     </div>
 
+    <div class="my-5">
+      <%= form.label :speed %>
+      <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :description %>
+      <%= form.text_area :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <%= form.hidden_field :bol, data: {"songs-target": "songBol"} %>
+
     <%# This is the main notes container %>
-    <div class="mt-4">
+    <div class="my-4">
       <div data-songs-target="notesContainer"
-        class="grid grid-cols-16 gap-2 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-fuchsia rounded-lg">
+        class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16 gap-2 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-fuchsia rounded-lg">
       </div>
     </div>
 
     <div class="inline">
-      <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+      <%= form.submit "Save",
+        class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
     </div>
   <% end %>
 
-  <template data-target="songs.noteTemplate">
+  <template data-songs-target="noteTemplate">
     <div class="note p-4 rounded-lg shadow-lg bg-fuchsia-500 relative">
       <div class="note-content"></div>
       <button class="absolute -top-2 -right-2" data-action="songs#deleteSongNote">
@@ -52,7 +65,7 @@
       ]
     %>
     <% bol_groups.each do |group| %>
-      <div class="grid grid-cols-16 gap-2 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-fuchsia rounded-lg">
+      <div class="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-16 gap-2 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-fuchsia rounded-lg">
         <% group.each do |bol| %>
           <button class="p-4 rounded-lg shadow-lg bg-fuchsia-500" data-action="songs#addSongNote"><%= bol %></button>
         <% end %>
