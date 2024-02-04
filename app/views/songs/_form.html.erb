@@ -1,0 +1,62 @@
+<div data-controller="songs">
+  <%= form_with(model: song, class: "contents") do |form| %>
+    <% if song.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h2><%= pluralize(song.errors.count, "error") %> prohibited this song from being saved:</h2>
+        <ul>
+          <% song.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="my-5">
+      <%= form.label :title %>
+      <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <%# This is the main notes container %>
+    <div class="mt-4">
+      <div data-songs-target="notesContainer"
+        class="grid grid-cols-16 gap-2 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-fuchsia rounded-lg">
+      </div>
+    </div>
+
+    <div class="inline">
+      <%= form.submit "Save", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+    </div>
+  <% end %>
+
+  <template data-target="songs.noteTemplate">
+    <div class="note p-4 rounded-lg shadow-lg bg-fuchsia-500 relative">
+      <div class="note-content"></div>
+      <button class="absolute -top-2 -right-2" data-action="songs#deleteSongNote">
+        <svg class="w-6 h-6" fill="black" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+      </button>
+    </div>
+  </template>
+
+  <div class="mt-4">Click on the bols below to add to the song</div>
+  <div class="my-4 grid grid-cols-1 gap-4">
+    <%
+      bol_groups = [
+        %w(Dha Dhin S),
+        %w(Ke Ge),
+        %w(Ti Ta),
+        %w(Na Ta Tin Tun),
+        %w(Tira Kita),
+        %w(TiraKita)
+      ]
+    %>
+    <% bol_groups.each do |group| %>
+      <div class="grid grid-cols-16 gap-2 font-mono text-white text-sm text-center font-bold leading-6 bg-stripes-fuchsia rounded-lg">
+        <% group.each do |bol| %>
+          <button class="p-4 rounded-lg shadow-lg bg-fuchsia-500" data-action="songs#addSongNote"><%= bol %></button>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
